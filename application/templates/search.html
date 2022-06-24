@@ -1,0 +1,28 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class='search-result-section'>
+    <div class="instruction-container">
+        <p class='select-instruction'>Select a Song to get Recommendations</p>
+    </div>
+    <div class='result-container'>
+        <p class="result-titleline">Showing Results for '{{search}}'</p>
+        {% if search_list|length %}
+            {% for song in search_list %}
+            <a href={{ url_for('recommend' ,song=song[0], song_id=song[4]) }} ><div class="searched-song">
+                <div class="song-info"><img class="song-coverart-search" src="{{song[2]}}" alt="song-cover-art"></div><div class="song-info" id="name-and-artist">
+                    <p class="song-name-search">{{song[0]}}</p>
+                    <p class="song-artist-search">{{song[1]}}</p>
+                </div></div></a>
+            {% endfor %}
+        {% else %}
+        <div class='no-result'>    
+            <span class="iconify" font-size=72px data-icon="emojione:confounded-face"></span>
+            <p>Oops...</p>
+            <p>No Matching Results were found</p>
+            <p>Either song is not available in our data or invalid song name entered</p>
+          </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

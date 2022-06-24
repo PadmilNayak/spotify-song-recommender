@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spotify Song Recommender</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/stylesheet.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;600&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+</head>
+
+<body>
+  <div class='page-container'>
+    <nav class="nav-bar">
+      <div class="nav-container">
+        <a class="navbar-title" href="{{ url_for('home') }}">Spotify Song Recommender</a>
+      </div>
+    </nav>
+    {% block search_area %}
+    <div class='search-area'>
+      <div class="dash-button-container">
+        <a class='button-text'href="/dashboard"><div class="dashboard-button">Go to Dashboard</div></a>
+      </div>
+      <div class='container'>
+        <div class='search-bar-container'>
+          <form action="{{ url_for('search_song') }}" method="post">
+
+            <div class='search-text'>
+              <input type="text" name='search' class="search-bar" id="search" aria-describedby="emailHelp"
+                placeholder="e.g. Lovely by: Billie Eilish">
+            </div>
+            <div class='search-button'>
+              <button type="submit" class="submit-button">SEARCH</button>
+            </div>
+          </form>
+          <small class="search-instruction">You can also search by song name (e.g. Lovely)</small>
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+    {% block content %}
+    <div class='popular-container'>
+      <div class='popular-on-spotify'>
+        <p class="title-section">Popular on Spotify</p>
+        {% for song in pop_songs %}
+        <a href={{song[4]}} target="_blank"> 
+          <div class='element-song'>
+            <img class='song-coverart-home' src='{{song[2]}}' />
+            <p class='song-name-home'>{{song[0]}}</p>
+            <p class='song-artist-home'>{{song[1]}}</p>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    <div class='favorites-container'>
+      <div class='favorites'>
+        <p class="title-section">Favorites</p>
+        {% for song in fav_songs %}
+        <a href={{song[4]}} target="_blank">
+          <div class='element-song'>
+            <img class='song-coverart-home' src='{{song[2]}}' />
+            <p class='song-name-home'>{{song[0]}}</p>
+            <p class='song-artist-home'>{{song[1]}}</p>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endblock %}
+    {% block footer %}
+    <div class='footer-section'>
+      <p>A Project By Padmil Nayak</p>
+      <a href="https://github.com/PadmilNayak/spotify-song-recommender" target="_blank"><span class="iconify" id='github-icon' data-icon="akar-icons:github-fill"></span></a>
+    </div>
+    {% endblock %}
+  </div>
+</body>
+
+</html>

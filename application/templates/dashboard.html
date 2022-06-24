@@ -1,0 +1,106 @@
+{% extends "index.html" %}
+
+{% block search_area %}
+    <div class="dash-subnav-container">
+        <div class="dash-button-container">
+            <a class='button-text'href="/"><div class="dashboard-button">Go to Home</div></a>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>   
+    <div class="graph-container">
+        <div class="kpi-text">
+            <div class="row-1">
+                <div class="title-dash-ele">
+                    Total Songs
+                </div>
+                <div class="content-dash-ele">
+                    {{total_songs}}
+                </div>
+            </div>
+            <div class="row-1">
+                <div class="title-dash-ele">
+                    Total Artists
+                </div>
+                <div class="content-dash-ele">
+                    {{total_artists}}
+                </div>
+            </div>
+            <div class="row-1">
+                <div class="title-dash-ele">
+                    Avg Duration
+                </div>
+                <div class="content-dash-ele">
+                    {{mins}}:{{secs}}
+                </div>
+            </div>
+        </div>
+        <div class="graphs">
+            <div class="row">
+                <div class="col-xs-3">
+                    <label class="top-song-label"> Top Songs by </label>
+                    <select class="form-control" id ='first_cat'>
+                        <option value="popularity">Popularity</option>
+                        <option value="danceability">Danceability</option>
+                        <option value="tempo">Tempo</option>
+                        <option value="liveness">Liveness</option>
+                        <option value="valence">Valence</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <div class="chart" id="bargraph">
+                        <script>
+                            var graphs = {{plot | safe}};
+                            Plotly.plot('bargraph',graphs,{});
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <label class="top-song-label"> Top Artists by </label>
+                    <select class="form-control" id ='first_cat_2'>
+                        <option value="size">No of Songs</option>
+                        <option value="popularity">Popularity</option>
+                        <option value="danceability">Danceability</option>
+                        <option value="tempo">Tempo</option>
+                        <option value="liveness">Liveness</option>
+                        <option value="valence">Valence</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <div class="chart" id="bargraph2">
+                        <script>
+                            var graphs = {{plot2 | safe}};
+                            Plotly.plot('bargraph2',graphs,{});
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="graphs">
+            <div class="year-plot">
+                <div class="col-xs-3">
+                    <label class="top-song-label"> Songs Over the Years </label>
+                    <select class="form-control" id ='first_cat_3'>
+                        <option value="features">Song features</option>
+                        <option value="popularity">Popularity</option>
+                        <option value="duration_min">Duration</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <div class="chart" id="linegraph">
+                        <script>
+                            var graphs = {{line_plot | safe}};
+                            Plotly.plot('linegraph',graphs,{});
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/styles/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/styles/js/plots.js"></script>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class='search-result-section'>
+    <div class='result-container'>
+        <p class="result-titleline">Showing Recommendation for '{{song}}'</p>
+        {% for song in songs_list %}
+        <a href={{song[3]}} target="_blank">
+            <div class='searched-song'>
+                <div class='song-info'>
+                    <img class='song-coverart-search' src="{{song[2]}}" alt="song-cover-art" />
+                </div>
+                <div class='song-info' id='name-and-artist'>
+                    <p class='song-name-search'>{{song[0]}}</p>
+                    <p class='song-artist-search'>{{song[1]}}</p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
